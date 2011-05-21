@@ -32,7 +32,8 @@ This extension is for the Silex microframework enables use Zend Framework's Zend
         $db->insert(
             'entries', array('title' => 'test_title', 'text' => 'test_text')
         );
-        $row = $table->fetchAll();
+        $table = new \Model\Entries();
+        $row   = $table->fetchAll();
         return json_encode($row->toArray());
     });
 
