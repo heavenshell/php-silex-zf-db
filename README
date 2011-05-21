@@ -1,0 +1,45 @@
+Silex Zend_Db extension.
+
+This extension is for the Silex microframework enables use Zend Framework's Zend_Db.
+
+    <?php
+    require_once 'silex.phar';
+    require_once dirname(__DIR__) . '/src/Zf1/DbExtension.php';
+
+    $zendpath = getenv('ZF_PATH');
+
+    $app = new Silex\Application();
+    $app->register(new \Zf1\ValidateExtension(), array(
+        'zend.class_path' => $zendpath,
+        'zend.db.adapter' => 'Pdo_Sqlite',
+        'zend.db.options' => array(
+            'dbname' => __DIR__ . '/test.db',
+        )
+    ));
+
+    $app->before(function() use ($app) {
+        $db    = $app['zend.db']();
+        $conn  = $db->getConnection();
+        $app['zend.db.connection'] = $conn;
+
+        // When you use Model class, add to namespace.
+        // If you not using namespace, use registerPrefix() instead.
+        $app['autoloader']->registerNamespace('Model', __DIR__);
+    });
+
+    $app->get('/create', function () use ($app) {
+        $db = $app['zend.db']();
+        $db->insert(
+            'entries', array('title' => 'test_title', 'text' => 'test_text')
+        );
+        $row = $table->fetchAll();
+        return json_encode($row->toArray());
+    });
+
+Set Zend Framework1 library to your include_path
+- Running examples
+  Add SetEnv ZF_PATH /Path/To/include_path to .htaccess
+- Running tests
+  export ZF_PATH=/Path/To/include_path
+
+See more detail http://framework.zend.com/manual/en/zend.db.html
