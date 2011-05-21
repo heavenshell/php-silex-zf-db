@@ -9,7 +9,7 @@ This extension is for the Silex microframework enables use Zend Framework's Zend
     $zendpath = getenv('ZF_PATH');
 
     $app = new Silex\Application();
-    $app->register(new \Zf1\ValidateExtension(), array(
+    $app->register(new \Zf1\DbExtension(), array(
         'zend.class_path' => $zendpath,
         'zend.db.adapter' => 'Pdo_Sqlite',
         'zend.db.options' => array(
