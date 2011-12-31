@@ -4,7 +4,7 @@
  *
  * PHP version 5.3
  *
- * Copyright (c) 2011 Shinya Ohyanagi, All rights reserved.
+ * Copyright (c) 2011-2012 Shinya Ohyanagi, All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -36,11 +36,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @use       \Silex\Application
- * @use       \Silex\ExtensionInterface
+ * @use       \Silex\ServiceProviderInterface
  * @category  \Silex
  * @package   \Silex\Extensions
  * @version   $id$
- * @copyright (c) 2011 Shinya Ohyanagi
+ * @copyright (c) 2011-2012 Shinya Ohyanagi
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
@@ -48,26 +48,26 @@
 namespace Zf1;
 
 use Silex\Application;
-use Silex\ExtensionInterface;
+use Silex\ServiceProviderInterface;
 
 /**
  * Zend_Validate extension.
  *
  * @use       \Silex\Application
- * @use       \Silex\ExtensionInterface
+ * @use       \Silex\ServiceProviderInterface
  * @category  \Silex
  * @package   \Silex\Extensions
  * @version   $id$
- * @copyright (c) 2011 Shinya Ohyanagi
+ * @copyright (c) 2011-2012 Shinya Ohyanagi
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
-class DbExtension implements ExtensionInterface
+class DbExtension implements ServiceProviderInterface
 {
     /**
      * Version.
      */
-    const VERSION = '0.0.1';
+    const VERSION = '0.0.2';
 
     /**
      * Register extension.
