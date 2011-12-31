@@ -4,7 +4,7 @@
  *
  * PHP version 5.3
  *
- * Copyright (c) 2011 Shinya Ohyanagi, All rights reserved.
+ * Copyright (c) 2011-2012 Shinya Ohyanagi, All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -39,7 +39,7 @@
  * @category  \Silex
  * @package   \Silex\Extensions
  * @version   $id$
- * @copyright (c) 2011 Shinya Ohyanagi
+ * @copyright (c) 2011-2012 Shinya Ohyanagi
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
@@ -55,7 +55,7 @@ use Silex\WebTestCase;
  * @category  \Silex
  * @package   \Silex\Extensions
  * @version   $id$
- * @copyright (c) 2011 Shinya Ohyanagi
+ * @copyright (c) 2011-2012 Shinya Ohyanagi
  * @author    Shinya Ohyanagi <sohyanagi@gmail.com>
  * @license   New BSD License
  */
@@ -64,6 +64,18 @@ class ZendDbExtensionTest extends WebTestCase
     public function createApplication()
     {
         return require dirname(__DIR__) . '/examples/index.php';
+    }
+
+    private function _createDb()
+    {
+        $app->register(new \Zf1\DbExtension(), array(
+            'zend.class_path' => getenv('ZF_PATH'),
+            'zend.db.adapter' => 'Pdo_Sqlite',
+            'zend.db.options' => array(
+                'dbname' => __DIR__ . '/test.db',
+            )
+        ));
+
     }
 
     public function tearDown()
