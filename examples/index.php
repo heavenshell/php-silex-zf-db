@@ -1,12 +1,11 @@
 <?php
-require_once 'silex.phar';
-require_once dirname(__DIR__) . '/src/Zf1/DbExtension.php';
 
-$zendpath = getenv('ZF_PATH');
+require_once dirname(__DIR__) . "/vendor/autoload.php";
 
 $app = new Silex\Application();
+$app['debug'] = true;
+
 $app->register(new \Zf1\DbExtension(), array(
-    'zend.class_path' => $zendpath,
     'zend.db.adapter' => 'Pdo_Sqlite',
     'zend.db.options' => array(
         'dbname' => __DIR__ . '/test.db',
@@ -19,8 +18,6 @@ $app->before(function() use ($app) {
     $conn  = $db->getConnection();
     $app['zend.db.connection'] = $conn;
     $conn->exec($sql);
-
-    $app['autoloader']->registerNamespace('Model', __DIR__);
 });
 
 $app->get('/create_table', function () use ($app) {
@@ -76,4 +73,5 @@ $app->get('/delete', function () use ($app) {
 if (getenv('SILEX_TEST')) {
     return $app;
 }
+
 $app->run();

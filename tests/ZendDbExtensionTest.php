@@ -69,7 +69,6 @@ class ZendDbExtensionTest extends WebTestCase
     private function _createDb()
     {
         $app->register(new \Zf1\DbExtension(), array(
-            'zend.class_path' => getenv('ZF_PATH'),
             'zend.db.adapter' => 'Pdo_Sqlite',
             'zend.db.options' => array(
                 'dbname' => __DIR__ . '/test.db',
