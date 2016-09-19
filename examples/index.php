@@ -12,6 +12,10 @@ $app->register(new \Zf1\DbExtension(), array(
     )
 ));
 
+$app->get('/', function() use ($app) {
+    return '{}';
+});
+
 $app->before(function() use ($app) {
     $sql   = file_get_contents(__DIR__ . '/table.sql');
     $db    = $app['zend.db']();
@@ -40,7 +44,7 @@ $app->get('/insert', function () use ($app) {
 $app->get('/fetch', function () use ($app) {
     $db    = $app['zend.db']();
     $items = $db->fetchRow('select title, text from entries order by id desc');
-    return $items;
+    return json_encode($items);
 });
 
 $app->get('/row', function () use ($app) {
@@ -53,7 +57,10 @@ $app->get('/row', function () use ($app) {
 $app->get('/update', function () use ($app) {
     $db    = $app['zend.db']();
     $table = new \Model\Entries();
-    $row   = $table->fetchRow($table->select()->where('id = ?', 1));
+
+    $subquery = 'id = (select max(id) from entries)';
+    $row   = $table->fetchRow($table->select()->where($subquery));
+
     $row->title = 'testtest';
     $row->save();
     $row = $table->fetchRow();
@@ -63,8 +70,10 @@ $app->get('/update', function () use ($app) {
 
 $app->get('/delete', function () use ($app) {
     $db    = $app['zend.db']();
-    $table = new \Model\Entries();
-    $row   = $table->fetchRow($table->select()->where('id = ?', 1));
+    $table = new \Model\Entries(['db' => $db]);
+
+    $subquery = 'id = (select max(id) from entries)';
+    $row   = $table->fetchRow($table->select()->where($subquery));
     $row->delete();
 
     return true;
