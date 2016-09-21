@@ -17,7 +17,7 @@
     </listeners>
 
     <testsuites>
-        <testsuite name="Suite de testes para Exceptions">
+        <testsuite name="heavenshell php-silex-zf-db">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
