@@ -101,6 +101,6 @@ class DbExtension implements ServiceProviderInterface
      */
     public function boot(Application $app)
     {
-        // nothing todo]
+        // nothing todo
     }
 }
